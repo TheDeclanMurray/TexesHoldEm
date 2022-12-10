@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            *{
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+            }
+            #title{
+                font-size: 8vh;
+                color: black;
+                text-decoration: underline;
+                text-align: center;
+            }
+            #chatBox{
+                background-color: grey;
+                border: 4vw;
+                width: 80%;
+                margin-left: auto;
+                margin-right: auto;
+                display: grid;
+                grid-template-columns: 80% 20%;
+                border: 2px solid white;
+                border-radius: 2px;
+            }
+            #command{
+                background-color: rgb(95, 95, 95);
+                font-size: 5vh;
+                width: 100%;
+                padding-left: 4vw;
+                padding-right: 4vw;
+                grid-row: 1;
+                grid-column: 1;
+                color: rgb(219, 219, 219);
+            }
+            #enter{
+                background-color: rgb(211, 211, 211);
+                font-size: 5vh;
+                width: 100%;
+                text-align: center;
+                grid-row: 1;
+                grid-column: 2;
+                border: 3px solid black;
+                border-radius: 8px;
+            }
+            .chatLine{
+                border-left: 4vw;
+                border-radius: 4vw;
+                font-size: 3vh;
+                width: 100%;
+                padding-left: 4vw;
+                padding-right: 4vw;
+                grid-column-start: 1;
+                grid-column-end: 3;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div style="background-color: rgb(53, 101, 77); height: 100vh;">
+            <div id="title" onclick="reload()">Poker Host Terminal</div>
+            <div id="chatBox">
+                <input id="command" type="text">
+                <div id="enter" onclick="onEnter()">Enter</div>
+                {% for line in data.chat %}
+                    <div class="chatLine">{{line}}</div>
+                {% endfor %}
+            </div>
+        </div>
+        <script type="text/javascript">
+            function onEnter(){
+                command = document.getElementById("command")
+                goTo = window.location.origin + "/host?c="+ command.value
+                window.location.replace(goTo);
+            }
+            function reload(){
+                goTo = window.location.origin + "/host"
+                window.location.replace(goTo);
+            }
+        </script>
+    </body>
+</html>

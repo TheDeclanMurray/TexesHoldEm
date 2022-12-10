@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <style>
+            *{
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+            }
+            #table{
+                background-color: rgb(53, 101, 77);
+                height: 96vh;
+                display: grid;
+                grid-template-rows: 45% 55%;
+                grid-template-columns: 30% 40% 30%;
+            }
+            #tableCards {
+                grid-row: 1;
+                grid-column-start: 1; 
+                grid-column-end: 4;
+                display: grid;
+                grid-template-rows: 2% 98%;
+                grid-template-columns: 20% 20% 20% 20% 20%;
+                border: 3px solid red;
+                margin-right: 1vw;
+                margin-left: 1vw;
+            }                    
+            .tableCard{
+                visibility: hidden;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .image{
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                margin-left: .2vw;
+                margin-right: .2vw;
+            }
+            #pot{
+                grid-row: 2;
+                grid-column: 2;
+                border: 2px  solid black;
+            }
+            #deck{
+                grid-row: 2;
+                grid-column: 1;
+                border: 2px  solid blue;
+            }
+            #discard{
+                grid-row: 2;
+                grid-column: 3;
+                border: 2px  solid blue;
+                display: grid;
+                grid-template-rows: 1% 1% 1% 1% 94%;
+            }
+            #disOne{
+                grid-row: 1;
+                transform: rotate(-8deg);
+            }
+            #disTwo{
+                grid-row: 2;
+                transform: rotate(10deg);
+            }
+            #disThree{
+                grid-row: 3;
+                transform: rotate(2deg);
+            }
+        </style>
+    </head>
+    <body>
+        <div id="table">
+            <div id="tableCards">
+                {% if data.delt >= 1 %}
+                <div style="grid-column: 1; grid-row: 2;">
+                    <img src="tableCard?n=1" class="image" width="98%">
+                </div>
+                <div style="grid-column: 2; grid-row: 2;">
+                    <img src="tableCard?n=2" class="image" width="98%">
+                </div>
+                <div style="grid-column: 3; grid-row: 2;">
+                    <img src="tableCard?n=3" class="image" width="98%">
+                </div>
+                {% endif %}
+                {% if data.delt >= 2 %}
+                <div style="grid-column: 4; grid-row: 2;">
+                    <img src="tableCard?n=4" class="image" width="98%">
+                </div>
+                {% endif %}
+                {% if data.delt >= 3 %}
+                <div style="grid-column: 5; grid-row: 2;">
+                    <img src="tableCard?n=5" class="image" width="98%">
+                </div>
+                {% endif %}
+            </div>
+            <div id="pot">
+                <img style="margin-left: 10%; margin-top: 4%;" src="sources?p=sources/chips.png" width="80%" class="image">
+                <div style="text-align: center; font-size: 6vh; color: white;">$20</div>
+            </div>
+            <div id="deck">
+                <img id="disOne" src="sources?p=sources/cards/back.png" width="74%" style="margin-left: 13%;">
+                <img id="disTwo" src="sources?p=sources/cards/back.png" width="74%" style="margin-left: 13%;">
+                <!-- <img id="disThree" src="sources?p=sources/cards/back.png" width="74%" style="margin-left: 13%;"> -->
+
+            </div>
+            <div id="discard">
+
+            </div>
+
+
+        </div>
+        <script type="text/javascript">
+            function reloadPage(){
+                goTo = window.location.origin + "/centerpiece"
+                window.location.replace(goTo);
+            }
+            function timeRefresh(time) {
+                setTimeout("reloadPage();", time);
+            }            
+            var refreshRate = {{data.refreshRate}}
+            timeRefresh(refreshRate)
+        </script>
+    </body>
+</html>

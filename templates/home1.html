@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            *{
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+            }
+            :root{
+                --computerButtonColor: blue;
+                --phoneButtonColor: grey;
+            }
+            div.container {
+                display: grid; 
+            }
+            div.center{
+                margin-left: 20vw;
+                margin-right: 20vw;
+            }
+            #computer {
+                grid-row: 1;
+                grid-column: 1;
+                font-size: large;
+                text-align: center;
+                padding: 3vh;
+                border: 3px solid black;
+                font-size: 50px;
+                margin-bottom: 3px;
+                
+                margin-top: 30vh;
+                background-color: var(--computerButtonColor);
+            }
+            #phone {
+                grid-row: 2;
+                grid-column: 1;
+                font-size: large;
+                text-align: center;
+                padding: 3vh;
+                border: 3px solid black;
+                font-size: 50px;
+                margin-top: 3px;
+                background-color: var(--phoneButtonColor);
+            }
+            #nameGrid {
+                grid-row: 3;
+                grid-column: 1;
+                display: grid;
+            }
+            
+            #name {
+                margin-top: 8px;
+                margin-bottom: 5px;
+                grid-row: 1;
+                grid-column: 1;
+                font-size: 20px;
+            }
+            #nameInput {
+                grid-row: 2;
+                grid-row: 2;
+                /* font-size: 30px; */
+                margin-left: 20px;
+                font-size: 20px;
+            }
+            /* #propho{
+                margin-top: 8px;
+                margin-bottom: 5px;
+                font-size: 20px;
+            } */
+            #joinKey {
+                /* grid-row: 3;
+                grid-column: 1; */
+                width: 30%;
+                font-size: 20px;
+                margin-left: 35%;
+                margin-top: 5px;
+                background-color: rgb(39, 204, 48);
+            }
+        </style>
+    </head>
+    <body>
+        <!-- <div class="container"> -->
+            <div id="computer" class="center" onclick="clicker(1)">
+                Computer
+            </div>
+            <div id="phone" class="center" onclick="clicker(2)">
+                Phone
+            </div> 
+            <div id="nameGrid" class="center">
+                <div id="name">
+                    Name:
+                </div>
+                <!-- <textarea id="nameInput" cols="20"  rows="1"></textarea> -->
+                <input type="text" id="nameInput">
+
+            </div>
+            <div class="center">
+                <div id="propho" style="font-size: 20;">ProPho:</div>
+            </div>
+            <button id="joinKey" onclick="join()">
+                Join
+            </button>
+        <!-- </div> -->
+        <script type="text/javascript">
+            
+            var platform = "comp"
+            function clicker(val){
+                let comp = document.getElementById("computer")
+                let phone = document.getElementById("phone")
+                let name = document.getElementById("name")
+                let nInput = document.getElementById("nameInput")
+                let propho = document.getElementById("propho")
+                let joinKey = document.getElementById("joinKey")
+
+                let spacerWidth = "2vw"
+                if(val == 1){
+                    platform = "comp"
+
+                    comp.style.backgroundColor = "blue"
+                    phone.style.backgroundColor = "grey"
+                    spacerWidth = "20vw"
+                    comp.style.marginTop = "30vh"
+                    comp.style.fontSize = "50px"
+                    phone.style.fontSize = "50px"
+
+                    name.style.fontSize = "20px"
+                    // propho.style.fontSize = "20px"
+                    nInput.style.fontSize = "20px"
+                    joinKey.style.fontSize = "20px"
+                    joinKey.style.width = "30%"
+                    joinKey.style.marginLeft = "35%"
+                }
+                if(val == 2){
+                    platform = "phone"
+
+                    comp.style.backgroundColor = "grey"
+                    phone.style.backgroundColor = "blue"
+                    comp.style.marginTop = "15vh"
+                    comp.style.fontSize = "150px"
+                    phone.style.fontSize = "150px"
+
+                    name.style.fontSize = "80px"
+                    // propho.style.fontSize = "80px"
+                    nInput.style.fontSize = "65px"
+                    joinKey.style.fontSize = "80px"
+                    joinKey.style.width = "50%"
+                    joinKey.style.marginLeft = "25%"
+                }
+
+                let centerable = document.getElementsByClassName("center")
+                Array.from(centerable).forEach(element => {
+                    console.log("changed")
+                    element.style.marginLeft = spacerWidth
+                    element.style.marginRight = spacerWidth
+                });
+            }
+            function join(){
+                let input = document.getElementById("nameInput")
+                goTo = window.location.origin + "/table?p=" + platform + "&n=" + input.value
+                window.location = goTo
+            }
+        </script>
+    </body>
+</html>

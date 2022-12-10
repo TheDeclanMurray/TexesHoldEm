@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="shortcut icon" href="faveicon.ico">
+        <link rel="apple-touch-icon" href="favicon.ico"/>
+        <style>
+            *{
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+            }
+            :root{
+                --player-size: 100px;
+            }
+            .table{
+                background-color: rgb(53, 101, 77);
+                display: grid;
+                grid-template-columns: 20vw 20vw 20vw 20vw 20vw;
+                grid-template-rows: 12vh .2vh 33.8vh 30vh 14vh;
+            }
+            .image{
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }    
+            #tableCards{
+                grid-row: 1;
+                grid-column-start: 2;
+                grid-column-end: 6;
+                display: grid;
+                grid-template-columns: 20% 20% 20% 20% 20%;
+            }
+            .tableCard{
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            #tableLayout{
+                grid-row: 3;
+                grid-column-start: 1;
+                grid-column-end: 6;
+                display: grid;
+                grid-template-columns: 30% 40% 30%;
+                grid-template-rows: 25% 25% 25% 25%;
+            }
+            #top{
+                grid-row: 1;
+                grid-column: 2;
+            }
+            #topLeft{
+                grid-row: 2;
+                grid-column: 1;
+                margin-right: 2vw;
+            }
+            #middleLeft{
+                grid-row: 3;
+                grid-column: 1;
+                margin-right: 2vw;
+            }
+            #bottomLeft{
+                grid-row: 4;
+                grid-column: 1;
+                margin-right: 2vw;
+            }
+            #topRight{
+                grid-row: 2;
+                grid-column: 3;
+                margin-left: 2vw;
+            }
+            #middleRight{
+                grid-row: 3;
+                grid-column: 3;
+                margin-left: 2vw;
+            }
+            #bottomRight{
+                grid-row: 4;
+                grid-column: 3;
+                margin-left: 2vw;
+            }
+            #potBox{
+                grid-row-start: 2;
+                grid-row-end: 5;
+                grid-column: 2;
+                display: grid;
+                grid-template-rows: 1% 99%;
+            }
+            #pot{
+                grid-row: 1;
+                z-index: 1;
+                opacity: .5;
+                text-align: center;
+                color: blue;
+                background-color: grey;
+                border-radius: 10px;
+                border: 3px blue solid;
+                height: min-content;
+                font-size: 7vh;
+                margin-right: auto;
+                margin-left: auto;
+                margin-top: 8vh;
+                padding-left: 1vw;
+                padding-right: 1vw;
+            }
+            #chatBox{
+                grid-row: 4;
+                grid-column-start: 1;
+                grid-column-end: 4;
+                background-color: rgba(48, 47, 47, 0.56);
+                padding-top: .5vh;
+                overflow: hidden;
+            }
+            .chatLine {
+                margin-left: 20px; 
+                margin-right: 20px;
+                font-size: 1.6vh;
+                color: rgb(201, 201, 201);
+                font-family: monospace;
+            }
+            #moneyBox{
+                grid-row: 4;
+                grid-column-start: 4;
+                grid-column-end: 6;
+                height: 30vh;
+                overflow: hidden;
+            }
+            #money{
+                display: grid;
+                grid-template-rows: 1% 99%;
+            }
+            #bettingBox{
+                grid-row: 1;
+                height: 24.3vh;
+                margin-left: 3vw;
+                margin-right: 3vw;
+                background-color: grey;
+                border-radius: 10px;
+                border: 3px black solid;
+                opacity: 0;
+                z-index: 1;
+            }
+            .placeBet{
+                font-size: 4vh;
+                text-align: center;
+                border: 3px blue solid;
+                border-radius: 5px;
+                height: auto;
+                color: blue;
+                background-color: white;
+                margin-top: .7vh;
+                margin-bottom: .7hv;
+                margin-left: 20px;
+                margin-right: 20px;
+            }
+            #handBox{
+                grid-row: 5;
+                grid-column-start: 1;
+                grid-column-end: 6;
+                overflow: hidden;
+                display: grid;
+                grid-template-rows: 1% 99%;
+                grid-template-columns: 20% 60% 20%;
+            }
+            #card1{
+                transform: rotate(-14deg);
+                margin-left: 7vw;
+                margin-top: 2.2vh;
+                grid-row: 2;
+                grid-column: 2;
+                z-index: 1;
+            }
+            #card2{
+                transform: rotate(-4deg);
+                margin-top: 0.9vh;
+                margin-left: 11vw;
+                grid-row: 1;
+                grid-column: 2;
+                z-index: 2;
+            }
+            .dealButton{
+                text-align: center;
+                border: 8px blue solid;
+                border-radius: 50px;
+                color: blue;
+                background-color: white;
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: auto;
+                padding-left: 1vw;
+                padding-right: 1vw;
+                font-size: 8vh;
+                grid-column-start: 1;
+                grid-column-end: 5;
+            }
+            .player{
+                width: var(--player-size);
+                height: var(--player-size);
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .playerName{
+                text-decoration: underline;
+                text-align: center;
+                font-size: 2vh;
+                text-decoration-color: whitesmoke;
+                color: whitesmoke;
+            }
+            #leaveButton{
+                width: 6vw;
+                height: min-content;
+                width: min-content;
+                background-color: aqua;
+                border-radius: 7px;
+                border: 2px black solid;
+                padding: 2px;
+                padding-right: 8px;
+                padding-left: 8px;
+                text-align: center;
+                font-size: 3.6vh;
+                margin-top: 3vh;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            #alertBox{
+                grid-row: 2;
+                grid-column-start: 1;
+                grid-column-end: 6;
+                text-align: center;
+                font-size: 8vh;
+                height: min-content;
+                color: red;
+                background-color: white;
+                border-radius: 40px;
+                border: 6px red solid;
+                z-index: 3;
+                opacity: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="table">
+            <div style="grid-row: 1; grid-column: 1;">
+                <div id="leaveButton" onclick="leaveGame()">Leave</div>
+            </div>
+            {% if data.alertMessage != 'N/A' %}
+            <div id="alertBox">{{data.alertMessage}}</div>
+            {% endif %}
+            <div id="tableCards">
+                {% if data.isDelt == 'true' %}
+                <div style="grid-column: 1; grid-row: 2;">
+                    <img src="tableCard?n=1" class="tableCard" height="60%">
+                </div>
+                <div style="grid-column: 2; grid-row: 2;">
+                    <img src="tableCard?n=2" class="tableCard" height="60%">
+                </div>
+                <div style="grid-column: 3; grid-row: 2;">
+                    <img src="tableCard?n=3" class="tableCard" height="60%">
+                </div>
+                <div style="grid-column: 4; grid-row: 2;">
+                    <img src="tableCard?n=4" class="tableCard" height="60%">
+                </div>
+                <div style="grid-column: 5; grid-row: 2;">
+                    <img src="tableCard?n=5" class="tableCard" height="60%">
+                </div>
+                {% endif %}
+            </div>
+            <div id="tableLayout">
+                <div id="top">
+                    {% if data.tableLayout[3][0] != 'invalid' %}
+                    <div class="playerName">{{data.tableLayout[3][0]}}</div>
+                    <div class="player">
+                        <img src={{data.tableLayout[3][1]}} height="100px">
+                    </div>
+                    {% endif %}
+                </div>
+                <div id="topLeft">
+                    {% if data.tableLayout[2][0] != 'invalid' %}
+                    <div class="playerName" style="text-align: right;">{{data.tableLayout[2][0]}}</div>
+                    <div class="player" style="margin-right: 0;">
+                        <img src={{data.tableLayout[2][1]}} height="100px">
+                    </div>
+                    {% endif %}
+                </div>
+                <div id="middleLeft">
+                    {% if data.tableLayout[1][0] != 'invalid' %}
+                    <div class="playerName" style="text-align: right;">{{data.tableLayout[1][0]}}</div>
+                    <div class="player" style="margin-right: 0;">
+                        <img src={{data.tableLayout[1][1]}} height="100px">
+                    </div>
+                    {% endif %}
+                </div>
+                <div id="bottomLeft">
+                    {% if data.tableLayout[0][0] != 'invalid' %}
+                    <div class="playerName" style="text-align: right;">{{data.tableLayout[0][0]}}</div>
+                    <div class="player" style="margin-right: 0;">
+                        <img src={{data.tableLayout[0][1]}} height="100px">
+                    </div>
+                    {% endif %}
+                </div>
+                <div id="topRight">
+                    {% if data.tableLayout[4][0] != 'invalid' %}
+                    <div class="playerName" style="text-align: left;">{{data.tableLayout[4][0]}}</div>
+                    <div class="player" style="margin-left: 0;">
+                        <img src={{data.tableLayout[4][1]}} height="100px">
+                    </div>
+                    {% endif %}
+                </div>
+                <div id="middleRight">
+                    {% if data.tableLayout[5][0] != 'invalid' %}
+                    <div class="playerName" style="text-align: left;">{{data.tableLayout[5][0]}}</div>
+                    <div class="player" style="margin-left: 0;">
+                        <img src={{data.tableLayout[5][1]}} height="100px">
+                    </div>
+                    {% endif %}
+                </div>
+                <div id="bottomRight">
+                    {% if data.tableLayout[6][0] != 'invalid' %}
+                    <div class="playerName" style="text-align: left;">{{data.tableLayout[6][0]}}</div>
+                    <div class="player" style="margin-left: 0;">
+                        <img src={{data.tableLayout[6][1]}} height="100px">
+                    </div>
+                    {% endif %}
+                </div>
+                <div id="potBox">
+                    <img style="grid-row: 2; z-index: 3; margin-top: 6vh;" src="sources?p=sources/chips.png" height="50%" 
+                        class="image" onclick="showPot(true)">
+                    <div id="pot">{{data.pot}}</div>
+                </div>
+            </div>
+            <div id="chatBox">
+                {% for line in data.chat %}
+                    <div class="chatLine" >{{line}}</div>
+                {% endfor %}
+            </div>
+            <div id="moneyBox">
+                <div style="text-align: center; font-size: 3vh; color: white; padding-top: 0.4vh ;">{{data.myMoney}}</div>
+                <div id="money">
+                    <img style="grid-row: 2; z-index: 2;" src="sources?p=sources/MyMoney.png" 
+                        height="390vh" class="image" onclick="showBet()">
+                    <div id="bettingBox" >
+                        <div class="placeBet" onclick="revealBet('R2')">Raise ?</div>
+                        <div class="placeBet" onclick="revealBet('raise',{{data.raiseTo}})">Raise {{data.raiseTo}}</div>
+                        <div class="placeBet" onclick="revealBet('call',{{data.matchValue}})">
+                            {% if data.matchValue == '0' %}
+                                Check
+                            {% else %}
+                                Call {{data.matchValue}}
+                            {% endif %}
+                        </div>
+                        <div class="placeBet" onclick="revealBet('fold',0)">Fold</div>
+                    </div>
+                </div>
+            </div>
+            <div id="handBox">
+                {% if data.dealer == 'true' %}
+                <div class="dealButton" onclick="dealCards()">Deal</div>
+                {% endif %}
+                {% if data.button == 'Reveal' %}
+                <div class="dealButton" onclick="revealButton()">Reveal</div>
+                {% endif %}
+                {% if data.showHand == 'true' %}
+                <img src="sources?p=sources/cards/back.png" height="280%" 
+                    onmousedown="revealHand()" 
+                    id="card1">
+                <img src="sources?p=sources/cards/back.png" height="280%" 
+                    onmousedown="revealHand()" 
+                    id="card2">
+                {% endif %}
+            </div>
+        </div>
+        <script type="text/javascript">
+            function reloadPage(){
+                goTo = window.location.origin + "/table?p=phone"
+                // goTo = window.location.origin + "/test"
+                window.location.replace(goTo);
+            }
+            function timeRefresh(time) {
+                setTimeout("reloadPage();", time);
+            }
+            textAlert = document.getElementById("alertBox")
+            function endAlert(time){
+                textAlert.style.opacity = textAlert.style.opacity - .01
+                if (textAlert.style.opacity > 0){
+                    setTimeout("endAlert(10)", time)
+                }
+            }
+            var refresh = {{data.refresh}}
+            var isDelt = {{data.isDelt}}
+            var refreshRate = {{data.refreshRate}}
+            if(refresh){
+                timeRefresh(refreshRate)
+            }else{
+                textAlert.style.opacity = "1"
+                setTimeout("endAlert(20)",3000)
+            }
+
+            var HandRevealed = true
+            function revealHand(){
+                let card1 = document.querySelector("#card1")
+                let card2 = document.querySelector("#card2")
+                if(HandRevealed){
+                    card2.setAttribute("src","myCards?n=2")
+                    card1.setAttribute("src","myCards?n=1")
+                }else{
+                    card2.setAttribute("src","sources?p=sources/cards/back.png")
+                    card1.setAttribute("src","sources?p=sources/cards/back.png")
+                }
+                HandRevealed = (!HandRevealed)
+            }
+
+            function showPot(show){
+                let pot = document.getElementById("pot")
+                if(show){
+                    pot.style.opacity = "1"
+                    pot.style.zIndex = "4"
+                    setTimeout("showPot(false)",700)
+                }else{
+                    pot.style.opacity = "0"
+                    pot.style.zIndex = "1"
+                }
+            }
+
+            function showBet(){
+                if(!refresh && isDelt){
+                    let bettingBox = document.getElementById("bettingBox")
+                    bettingBox.style.opacity = "1"
+                    bettingBox.style.zIndex = "3"
+                }
+            }
+            function revealBet(bet, val){
+                console.log("Bet:",bet)
+                // if(!refresh && isDelt){
+                    if(bet == "fold"){
+                        goTo = window.location.origin + "/table?p=phone&b=fold"
+                        console.log(goTo)
+                    }
+                    if(bet == "call"){
+                        goTo = window.location.origin + "/table?p=phone&b="+val.toString()
+                        console.log(goTo)
+                    }
+                    if(bet == "raise"){
+                        goTo = window.location.origin + "/table?p=phone&b="+val.toString()
+                        console.log(goTo)
+                    }
+                    if(bet == "R2"){
+                        let raise = prompt("Custom Bet:");
+                        if(raise == null){
+                            return
+                        }
+                        goTo = window.location.origin + "/table?p=phone&b="+raise
+                        console.log(goTo)
+                    }
+                    window.location.replace(goTo);
+                    // window.location = goTo
+                // }
+            }
+
+            function dealCards(){
+                goTo = window.location.origin + "/table?p=phone&d=true"
+                window.location.replace(goTo);
+            }
+            function revealButton(){
+                goTo = window.location.origin + "/table?p=phone&r=true"
+                window.location.replace(goTo);
+            }
+            function leaveGame(){
+                goTo = window.location.origin + "/leaveGame"
+                window.location.replace(goTo);
+            }
+        </script>
+    </body>
+</html>

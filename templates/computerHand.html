@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="shortcut icon" href="faveicon.ico">
+        <link rel="apple-touch-icon" href="favicon.ico"/>
+        <style>
+            *{
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+            }
+            :root{
+                --player-size: 80px;
+            }
+    /* TOP */
+            div.table {
+                background-color: rgb(53, 101, 77);
+            }
+            div.container {
+                display: grid; 
+                height: 55vh;
+                grid-template-columns: 25vw 11vw 28vw 11vw 25vw;
+                grid-template-rows: 25vh 8vh 22vh;
+            }
+            .player{
+                width: var(--player-size);
+                height: var(--player-size);
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .playerName{
+                text-decoration: underline;
+                text-align: center;
+                font-size: larger;
+                text-decoration-color: whitesmoke;
+                color: whitesmoke;
+            }
+            .image{
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .topLeft {
+                grid-row: 1;
+                grid-column-start: 1;
+                grid-column-end: 3;
+            }
+            .center {
+                grid-row-start: 1;
+                grid-row-end: 3;
+                grid-column: 3;
+                align-items: center;
+                overflow: hidden;
+            }
+            .topRight {
+                grid-row: 1; 
+                grid-column-start: 4;
+                grid-column-end: 6;
+            }
+            .left {
+                grid-row-start: 2;
+                grid-row-end: 4;
+                grid-column: 1;
+                display: grid;
+                grid-template-columns: 45% 20% 35%;
+            }
+            .tableCards {
+                grid-row: 3;
+                grid-column-start: 2;
+                grid-column-end: 5;
+                display: grid;
+                grid-template-rows: 2% 98%;
+            }                    
+            .tableCard{
+                visibility: hidden;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .right {
+                grid-row-start: 2;
+                grid-row-end: 4;
+                grid-column: 5;
+                display: grid;
+                grid-template-columns: 35% 20% 45%;
+            }
+            .leaveButton {
+                grid-row: 1;
+                grid-column: 1;
+                width: 6vw;
+                height: min-content;
+                background-color: aqua;
+                border-radius: 7px;
+                border: 2px black solid;
+                padding: 2px;
+                text-align: center;
+            }
+            #textBox {
+                grid-column-start: 1;
+                grid-column-end: 6;
+                text-align: center;
+                font-size: 100px;
+                height: 120px;
+                color: red;
+                background-color: white;
+                border-radius: 10px;
+                border: 3px red solid;
+                opacity: 0;
+            }  
+    /* BOTTOM */
+            .bottom {
+                display: grid;
+                height: 45vh;
+            }
+            .spacer {
+                height: 5vh;
+            }
+            .chat-box{
+                grid-row: 1;
+                grid-column: 1;
+                height: 45vh;
+                overflow: hidden;
+            }
+            .chat{
+                height: 40vh;
+                width: 30vw;
+                background-color: rgba(48, 47, 47, 0.56);
+                font-family: monospace;
+            }
+            .chatLine {
+                margin-left: 15px; 
+                margin-right: 15px;
+                font-size: large;
+                color: rgb(158, 158, 158);
+            }
+            .hand{
+                grid-row: 1;
+                grid-column: 2;
+                height: 45vh;
+                width: 40vw;
+                overflow: hidden;
+                display: grid;
+                grid-template-rows: 5% 95%;
+            }
+            #card1{
+                transform: rotate(-30deg);
+                margin-left: 12vw;
+                grid-row: 2;
+                margin-top: 2vh;
+                z-index: 1;
+            }
+            #card2{
+                transform: rotate(-15deg);
+                margin-top: 2.6vh;
+                margin-left: 13vw;
+                grid-row: 1;
+                z-index: 2;
+            }
+            #back1{
+                transform: rotate(-30deg);
+                margin-left: 12vw;
+                grid-row: 2;
+                margin-top: 2vh;
+                z-index: 3;
+            }
+            #back2{
+                transform: rotate(-15deg);
+                margin-top: 2.6vh;
+                margin-left: 13vw;
+                grid-row: 1;
+                z-index: 4;
+            }
+            .money-box {
+                grid-row: 1;
+                grid-column: 3;
+                height: 45vh;
+            }
+            .money{
+                height: 35vh;
+                width: 30vw;
+                display: grid;
+                grid-template-rows: 2% 98%;
+            }
+            .potBox{
+                display: grid; 
+                grid-template-rows: 2% 98%;
+            }
+            #pot{
+                grid-row: 1;
+                text-align: center;
+                font-size: 80px;
+                height: 95px;
+                color: blue;
+                background-color: grey;
+                border-radius: 10px;
+                border: 3px blue solid;
+                opacity: 0;
+                margin-top: 20px;
+                margin-left: auto;
+                margin-right: auto;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+            #bettingBox{
+                grid-row: 1;
+                height: 30vh;
+                margin-left: 3vw;
+                margin-right: 3vw;
+                background-color: grey;
+                border-radius: 10px;
+                border: 3px black solid;
+                opacity: 0;
+                z-index: 1;
+            }
+            .placeBet{
+                font-size: 5vh;
+                text-align: center;
+                border: 3px blue solid;
+                border-radius: 5px;
+                height: auto;
+                color: blue;
+                background-color: white;
+                margin-top: .7vh;
+                margin-bottom: .7hv;
+                margin-left: 40px;
+                margin-right: 40px;
+            }
+            .dealCards{
+                grid-row: 2;
+                font-size: 10vh;
+                text-align: center;
+                border: 5px blue solid;
+                border-radius: 30px;
+                color: blue;
+                background-color: white;
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: auto;
+                padding: 5%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="table">
+            <div class="container">
+                <div class="topLeft">
+                    <div class="leaveButton" onclick="leaveGame()">Leave</div>
+                    <div style="display: grid;
+                                height: 80%; 
+                                grid-template-columns: 50% 20% 30%;; 
+                                grid-template-rows: 35% 65%;"
+                                >
+                        {% if data.tableLayout[2][0] == 'invalid' %}
+                        <div class="playerName" style="grid-column: 2; 
+                                                    grid-row: 2; 
+                                                    text-align: right;
+                                                    opacity: 0;" >{{data.tableLayout[2][0]}}</div>
+                        <div class="player" style="grid-column: 3; grid-row: 2; margin-left: 10px; opacity: 0;">
+                            <img src="sources?p=sources/propho/profile-blank.webp" height="78px">
+                        </div>
+                        {% else %}
+                        <div class="playerName" style="grid-column: 2; 
+                                                    grid-row: 2; 
+                                                    text-align: right;" >{{data.tableLayout[2][0]}}</div>
+                        <div class="player" style="grid-column: 3; grid-row: 2; margin-left: 10px;">
+                            <img src={{data.tableLayout[2][1]}} height="78px">
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="center">
+                    {% if data.tableLayout[3][0] == 'invalid' %}
+                    <div class="playerName" style="opacity: 0;">{{data.tableLayout[3][0]}}</div>
+                    <div class="player" style="margin-bottom: .5vh; opacity: 0;">
+                        <img src="sources?p=sources/propho/profile-blank.webp" height="78px">
+                    </div>
+                    {% else %}
+                    <div class="playerName">{{data.tableLayout[3][0]}}</div>
+                    <div class="player" style="margin-bottom: .5vh;">
+                        <img src={{data.tableLayout[3][1]}} height="78px">
+                    </div>
+                    {% endif %}
+                    <div class="potBox">
+                        <img style="grid-row: 2; z-index: 3;" src="sources?p=sources/chips.png" height="135px" class="image" onclick="showPot(true)">
+                        <div id="pot">{{data.pot}}</div>
+                    </div>
+                </div>
+                <div class="topRight">
+                    <div class="leaveButton" style="opacity: 0;">Leave2</div>
+                    <div style="display: grid;
+                                height: 80%; 
+                                grid-template-columns: 30% 20% 50%;; 
+                                grid-template-rows: 35% 60%;">
+                        {% if data.tableLayout[4][0] == 'invalid' %}
+                            <div class="playerName" style="grid-column: 2; 
+                                                    grid-row: 2; 
+                                                    text-align: left;
+                                                    opacity: 0;" >{{data.tableLayout[4][0]}}</div>
+                            <div class="player" style="grid-column: 1; grid-row: 2; margin-right: 10px; opacity: 0;">
+                                <img src="sources?p=sources/propho/profile-blank.webp" height="78px">
+                            </div>
+                        {% else %}
+                            <div class="playerName" style="grid-column: 2; 
+                                                    grid-row: 2; 
+                                                    text-align: left;" >{{data.tableLayout[4][0]}}</div>
+                            <div class="player" style="grid-column: 1; grid-row: 2; margin-right: 10px;">
+                                <img src={{data.tableLayout[4][1]}} height="78px">
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="left">
+                    {% if data.tableLayout[1][0] == 'invalid' %}
+                    <div class="playerName" style="grid-row: 1;
+                                        grid-column: 2;
+                                        text-align: right;
+                                        margin-top: 10px;
+                                        opacity: 0;">{{data.tableLayout[1][0]}}</div>
+                    <div class="player" style="grid-row: 1;
+                                        grid-column: 3;
+                                        margin-left: 10px;
+                                        margin-top: 10px;
+                                        opacity: 0;">
+                        <img src="sources?p=sources/propho/profile-blank.webp" height="78px">
+                    </div>
+                    {% else %}
+                    <div class="playerName" style="grid-row: 1;
+                                        grid-column: 2;
+                                        text-align: right;
+                                        margin-top: 10px;">{{data.tableLayout[1][0]}}</div>
+                    <div class="player" style="grid-row: 1;
+                                        grid-column: 3;
+                                        margin-left: 10px;
+                                        margin-top: 10px;">
+                        <img src={{data.tableLayout[1][1]}} height="78px">
+                    </div>
+                    {% endif %}
+                    {% if data.tableLayout[0][0] == 'invalid' %}
+                    <div class="playerName" style="grid-row: 2;
+                                                grid-column: 2;
+                                                text-align: right;
+                                                margin-top: auto;
+                                                margin-bottom: 6.5vh;
+                                                opacity: 0;">{{data.tableLayout[0][0]}}</div>
+                    <div class="player" style="grid-row: 2;
+                                                grid-column: 3;
+                                                margin-left: 10px;
+                                                margin-top: auto;
+                                                opacity: 0;">
+                        <img src="sources?p=sources/propho/profile-blank.webp" height="78px">
+                    </div>
+                    {% else %}
+                    <div class="playerName" style="grid-row: 2;
+                                                grid-column: 2;
+                                                text-align: right;
+                                                margin-top: auto;
+                                                margin-bottom: 6.5vh;">{{data.tableLayout[0][0]}}</div>
+                    <div class="player" style="grid-row: 2;
+                                                grid-column: 3;
+                                                margin-left: 10px;
+                                                margin-top: auto;">
+                        <img src={{data.tableLayout[0][1]}} height="78px">
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="tableCards">
+                    {% if data.isDelt == 'false' %}
+                        <div style="grid-column: 1; grid-row: 2;">
+                            <img src="tableCard?n=1" class="tableCard" height="88%">
+                        </div>
+                        <div style="grid-column: 2; grid-row: 2;">
+                            <img src="tableCard?n=2" class="tableCard" height="88%">
+                        </div>
+                        <div style="grid-column: 3; grid-row: 2;">
+                            <img src="tableCard?n=3" class="tableCard" height="88%">
+                        </div>
+                        <div style="grid-column: 4; grid-row: 2;">
+                            <img src="tableCard?n=4" class="tableCard" height="88%">
+                        </div>
+                        <div style="grid-column: 5; grid-row: 2;">
+                            <img src="tableCard?n=5" class="tableCard" height="88%">
+                        </div>
+                    {% else %}
+                        <div style="grid-column: 1; grid-row: 2;">
+                            <img src="tableCard?n=1" class="image" height="88%">
+                        </div>
+                        <div style="grid-column: 2; grid-row: 2;">
+                            <img src="tableCard?n=2" class="image" height="88%">
+                        </div>
+                        <div style="grid-column: 3; grid-row: 2;">
+                            <img src="tableCard?n=3" class="image" height="88%">
+                        </div>
+                        <div style="grid-column: 4; grid-row: 2;">
+                            <img src="tableCard?n=4" class="image" height="88%">
+                        </div>
+                        <div style="grid-column: 5; grid-row: 2;">
+                            <img src="tableCard?n=5" class="image" height="88%">
+                        </div>
+                    {% endif %}
+                    {% if data.alertMessage != 'N/A' %}
+                        <div id="textBox">{{data.alertMessage}}</div>
+                    {% endif %}
+                </div>
+                <div class="right">
+                    {% if data.tableLayout[5][0] == 'invalid' %}
+                        <div class="playerName" style="grid-row: 1;
+                                            grid-column: 2;
+                                            text-align: left;
+                                            margin-top: 10px;
+                                            opacity: 0;">{{data.tableLayout[5][0]}}</div>
+                        <div class="player" style="grid-row: 1;
+                                            grid-column: 1;
+                                            margin-right: 10px;
+                                            margin-top: 10px;
+                                            opacity: 0;">
+                        <img src="sources?p=sources/propho/profile-blank.webp" height="78px">
+                        </div>
+                    {% else %}
+                        <div class="playerName" style="grid-row: 1;
+                                                    grid-column: 2;
+                                                    text-align: left;
+                                                    margin-top: 10px;">{{data.tableLayout[5][0]}}</div>
+                        <div class="player" style="grid-row: 1;
+                                                    grid-column: 1;
+                                                    margin-right: 10px;
+                                                    margin-top: 10px;">
+                            <img src={{data.tableLayout[5][1]}} height="78px">
+                        </div>
+                    {% endif %}
+                    {% if data.tableLayout[6][0] == 'invalid' %}
+                    <div class="playerName" style="grid-row: 2;
+                                        grid-column: 2;
+                                        text-align: left;
+                                        margin-top: auto;
+                                        margin-bottom: 6.5vh;
+                                        opacity: 0;">{{data.tableLayout[6][0]}}</div>
+                    <div class="player" style="grid-row: 2;
+                                        grid-column: 1;
+                                        margin-right: 10px;
+                                        margin-top: auto;
+                                        opacity: 0;">
+                        <img src="sources?p=sources/propho/profile-blank.webp" height="78px">
+                    </div>
+                    {% else %}
+                    <div class="playerName" style="grid-row: 2;
+                                        grid-column: 2;
+                                        text-align: left;
+                                        margin-top: auto;
+                                        margin-bottom: 6.5vh;">{{data.tableLayout[6][0]}}</div>
+                    <div class="player" style="grid-row: 2;
+                                        grid-column: 1;
+                                        margin-right: 10px;
+                                        margin-top: auto;">
+                        <img src={{data.tableLayout[6][1]}} height="78px">
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="bottom">
+                <div class="chat-box">
+                    <div class="spacer"></div>
+                    <div class="chat">
+                        {% for line in data.chat %}
+                            <div class="chatLine">{{line}}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="hand" >
+                    {% if data.dealer == 'true' %}
+                        <div class="dealCards" onclick="dealCards()">Deal Cards</div>
+                    {% endif %}
+                    {% if data.button == 'Reveal' %}
+                        <div class="dealCards" onclick="revealButton()">Reveal</div>
+                    {% endif %}
+                    {% if data.showHand == 'true' %}
+                        <img src="sources?p=sources/cards/back.png" height="350px" 
+                        onmousedown="revealHand(true)" onmouseup="revealHand(false)"
+                        id="card1">
+                        <img src="sources?p=sources/cards/back.png" height="350px" 
+                            onmousedown="revealHand(true)" onmouseup="revealHand(false)"
+                            id="card2">
+                    {% endif %}
+                </div>
+                <div class="money-box">
+                    <div class="spacer">
+                        <div  style="text-align: center; font-size: 3vh; color: white; padding-top: 2vh ;">{{data.myMoney}}</div>
+                    </div>
+                    <div class="money">
+                        <img style="grid-row: 2; z-index: 2;" src="sources?p=sources/MyMoney.png" 
+                            height="300px" class="image" onclick="showBet()">
+                        <div id="bettingBox" >
+                            <div class="placeBet" onclick="revealBet('R2')">Raise ?</div>
+                            <div class="placeBet" onclick="revealBet('raise',{{data.raiseTo}})">Raise {{data.raiseTo}}</div>
+                            <div class="placeBet" onclick="revealBet('call',{{data.matchValue}})">
+                            {% if data.matchValue == '0' %}
+                                Check
+                            {% else %}
+                                Call {{data.matchValue}}
+                            {% endif %}
+                            </div>
+                            <div class="placeBet" onclick="revealBet('fold',0)">Fold</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+
+        <script type="text/javascript">
+            function reloadPage(){
+                goTo = window.location.origin + "/table?p=comp"
+                window.location.replace(goTo);
+            }
+            function timeRefresh(time) {
+                setTimeout("reloadPage();", time);
+            }
+            textAlert = document.getElementById("textBox")
+            function endAlert(time){
+                textAlert.style.opacity = textAlert.style.opacity - .01
+                if (textAlert.style.opacity > 0){
+                    setTimeout("endAlert(10)", time)
+                }
+            }
+            var refresh = {{data.refresh}}
+            var isDelt = {{data.isDelt}}
+            var refreshRate = {{data.refreshRate}}
+            if(refresh){
+                timeRefresh(refreshRate)
+            }else{
+                textAlert.style.opacity = "1"
+                setTimeout("endAlert(20)",3000)
+            }
+            function revealHand(reveal){
+                let card1 = document.querySelector("#card1")
+                let card2 = document.querySelector("#card2")
+                if(reveal){
+                    card2.setAttribute("src","myCards?n=2")
+                    card1.setAttribute("src","myCards?n=1")
+                }else{
+                    card2.setAttribute("src","sources?p=sources/cards/back.png")
+                    card1.setAttribute("src","sources?p=sources/cards/back.png")
+                }
+            }
+            function showPot(show){
+                let pot = document.getElementById("pot")
+                if(show){
+                    pot.style.opacity = "1"
+                    pot.style.zIndex = "4"
+                    setTimeout("showPot(false)",700)
+                }else{
+                    pot.style.opacity = "0"
+                    pot.style.zIndex = "1"
+                }
+            }
+            function showBet(){
+                if(!refresh && isDelt){
+                    let bettingBox = document.getElementById("bettingBox")
+                    bettingBox.style.opacity = "1"
+                    bettingBox.style.zIndex = "3"
+                }
+            }
+            function revealBet(bet, val){
+                console.log("Bet:",bet)
+                if(!refresh && isDelt){
+                    if(bet == "fold"){
+                        goTo = window.location.origin + "/table?p=comp&b=fold"
+                        console.log(goTo)
+                    }
+                    if(bet == "call"){
+                        goTo = window.location.origin + "/table?p=comp&b="+val.toString()
+                        console.log(goTo)
+                    }
+                    if(bet == "raise"){
+                        goTo = window.location.origin + "/table?p=comp&b="+val.toString()
+                        console.log(goTo)
+                    }
+                    if(bet == "R2"){
+                        let raise = prompt("Custom Bet:");
+                        if(raise == null){
+                            return
+                        }
+                        goTo = window.location.origin + "/table?p=comp&b="+raise
+                        console.log(goTo)
+                    }
+                    window.location.replace(goTo);
+                }
+            }
+            function dealCards(){
+                goTo = window.location.origin + "/table?p=comp&d=true"
+                window.location.replace(goTo);
+            }
+            function revealButton(){
+                goTo = window.location.origin + "/table?p=comp&r=true"
+                window.location.replace(goTo);
+            }
+            function leaveGame(){
+                goTo = window.location.origin + "/leaveGame"
+                window.location.replace(goTo);
+            }
+        </script>
+    </body>
+</html>

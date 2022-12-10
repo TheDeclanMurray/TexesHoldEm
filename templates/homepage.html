@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            *{
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+            }
+            #container{
+                display: grid;
+                grid-template-columns: 18% 64% 18%;
+                /* background-color: rgb(53, 101, 77); */
+                /* height: 100vh; */
+            }
+            .platformButton{
+                font-size: 7vh;
+                height: min-content;
+                border: 3px solid black;
+                border-radius: 7px;
+                text-align: center;
+                margin: 0.5vh;
+                padding-top: 1vh;
+                padding-bottom: 1vh;
+            }
+            #computer{
+                background-color: blue;
+                color: rgb(234, 234, 234);
+            }
+            #phone{
+                background-color: grey;
+            }
+            #spacer{
+                height: 20vh;
+                grid-column-start: 1;
+                grid-column-end: 4;
+            }
+            .textBox{
+                font-size: 4vh;
+                text-decoration: underline;
+            }
+            .inputBox{
+                font-size: 4vh;
+                width: 90%;
+                margin-left: 4vw;
+            }
+            #join{
+                width: 30%;
+                font-size: 4vh;
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: .2vh;
+                background-color: rgb(39, 204, 48);
+                text-align: center;
+                border: 2px solid black;
+                border-radius: 7px;
+            }
+            #errorBox{
+                color: red;
+                text-align: center;
+                font-size: 4.5vh;
+                height: 5vh;
+                grid-column-start: 1;
+                grid-column-end: 4;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <div id="spacer"></div>
+            <div id="errorBox">{{errorMessage}}</div>
+            <div style="grid-column: 2;">
+                <div id="computer" class="platformButton" onclick="compClick()">Computer</div>
+                <div id="phone" class="platformButton" onclick="phoneClick()">Mobile</div>
+                <div id="name" class="textBox">Name:</div>
+                <input id="nameInput" type="text" class="inputBox">
+                <div id="propho" class="textBox">ProPho:</div>
+                <input id="prophoInput" type="text" class="inputBox">
+                <div id="join" onmousedown="joinKey()">Join</div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            let phone = document.getElementById("phone")
+            let comp = document.getElementById("computer")
+            let container = document.getElementById("container")
+            let platform = "comp"
+            function phoneClick(){
+                platform = "phone"
+                phone.style.backgroundColor = "blue"
+                phone.style.color = "rgb(234, 234, 234)"
+                comp.style.backgroundColor = "grey"
+                comp.style.color = "black"
+                container.style.gridTemplateColumns = "5% 90% 5%"
+            }
+            function compClick(){
+                platform = "comp"
+                phone.style.backgroundColor = "grey"
+                phone.style.color = "black"
+                comp.style.backgroundColor = "blue"
+                comp.style.color = "rgb(234, 234, 234)"
+                container.style.gridTemplateColumns = "18% 64% 18%"
+            }
+            function joinKey(){
+                let input = document.getElementById("nameInput")
+                if(input.value == ""){
+                    return
+                }
+                let prophoInput = document.getElementById("prophoInput")
+                goTo = window.location.origin + "/table?p=" + platform + "&n=" + input.value + "&i=" + prophoInput.value
+                window.location = goTo
+            }
+        </script>
+    </body>
+</html>
